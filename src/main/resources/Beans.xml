@@ -7,13 +7,21 @@
     <import resource="loggers.xml"/>
 
     <bean id="client" class="com.tutorialspoint.Client">
-        <constructor-arg value="1"/>
-        <constructor-arg value="John"/>
+        <constructor-arg value="${id}"/>
+        <constructor-arg value="${name}"/>
+        <property name="greeting" value="${greeting}"/>
     </bean>
+
 
     <bean id="app" class="com.tutorialspoint.App">
         <constructor-arg ref="client"/>
-        <constructor-arg ref="consoleEventLogger"/>
+        <constructor-arg ref="#{T(com.tutorialspoint.Event).isDay(8,17)? fileEventLogger:consoleEventLogger}"/>
+        <constructor-arg>
+            <map>
+                <entry key="INFO" value-ref="consoleEventLogger"/>
+                <entry key="ERROR" value-ref="combinedEventLogger"/>
+            </map>
+        </constructor-arg>
     </bean>
 
     <bean id="event" class="com.tutorialspoint.Event" scope="prototype">
@@ -24,6 +32,21 @@
             <bean class="java.text.DateFormat" factory-method="getDateTimeInstance"/>
         </constructor-arg>
     </bean>
+
+    <bean class="org.springframework.beans.factory.config.PropertyPlaceholderConfigurer">
+        <property name="locations">
+            <list>
+                <value>client.properties</value>
+            </list>
+        </property>
+
+        <property name="ignoreResourceNotFound" value="true"/>
+
+        <property name="systemPropertiesModeName" value="SYSTEM_PROPERTIES_MODE_OVERRIDE"/>
+
+    </bean>
+
+    <bean id="loggingAspect" class="com.tutorialspoint.LoggingAspect"/>
 
 
 </beans>

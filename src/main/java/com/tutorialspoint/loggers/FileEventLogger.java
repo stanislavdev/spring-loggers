@@ -1,5 +1,6 @@
-package com.tutorialspoint;
+package com.tutorialspoint.loggers;
 
+import com.tutorialspoint.Event;
 import org.apache.commons.io.FileUtils;
 
 import java.io.File;

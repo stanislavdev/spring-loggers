@@ -1,4 +1,6 @@
-package com.tutorialspoint;
+package com.tutorialspoint.loggers;
+
+import com.tutorialspoint.Event;
 
 import java.util.ArrayList;
 import java.util.List;

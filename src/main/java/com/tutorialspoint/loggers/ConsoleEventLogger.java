@@ -1,4 +1,6 @@
-package com.tutorialspoint;
+package com.tutorialspoint.loggers;
+
+import com.tutorialspoint.Event;
 
 public class ConsoleEventLogger implements EventLogger {
     public void logEvent(Event event) {
